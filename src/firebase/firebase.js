@@ -33,24 +33,24 @@ import * as firebase from 'firebase';
 
 
 
-//   const expenses = [{
-//       description: 'cheese',
-//       note: '',
-//       amount: 63.73,
-//       createdAt: 0
-//   }, {
-//       description: 'soap',
-//       note: '',
-//       amount: 4.95,
-//       createdAt: 100
-//   }, {
-//       description: 'big ass titties',
-//       note: '',
-//       amount: 140.00,
-//       createdAt: 200
-//   }];
+  // const expenses = [{
+  //     description: 'cheese',
+  //     note: '',
+  //     amount: 63.73,
+  //     createdAt: 0
+  // }, {
+  //     description: 'soap',
+  //     note: '',
+  //     amount: 4.95,
+  //     createdAt: 100
+  // }, {
+  //     description: 'big ass titties',
+  //     note: '',
+  //     amount: 140.00,
+  //     createdAt: 200
+  // }];
 
-//   expenses.map((expense) => database.ref('expenses').push(expense));
+  // expenses.map((expense) => database.ref('expenses').push(expense));
 
 //  database.ref('expenses')
 //  .once('value')
