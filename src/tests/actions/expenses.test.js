@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import {    startAddExpense, 
             addExpense,
             editExpense, 
+            startRemoveExpense,
             removeExpense,
             setExpenses,
             startSetExpenses } from '../../actions/expenses';
@@ -11,20 +12,37 @@ import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
 
-beforeEach((done)=> {
-    database.ref().remove()
-    .then(() => {
-    expenses.map(({ id, description, note, amount, createdAt}) => database.ref('expenses').push({id, description, note, amount, createdAt}))
-    done();
-});
-});
+beforeEach((done) => {
+    const expensesData = {};
+    expenses.forEach(({ id, description, note, amount, createdAt }) => {
+      expensesData[id] = { description, note, amount, createdAt };
+    });
+    database.ref('expenses').set(expensesData).then(() => done());
+  });
 
-test('should setup remove expense action obejct', () => {
+test('should setup remove expense action object', () => {
     const action = removeExpense({id: 'testid'});
     expect(action).toEqual({
         type: 'REMOVE_EXPENSE',
         id: 'testid'
     });
+});
+
+test(`should remove expense from database and store`, (done) => {
+    const store = createMockStore({});
+    const id = expenses[2].id;
+    return store.dispatch(startRemoveExpense({ id }))
+    .then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_EXPENSE',
+      id
+    });
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toBeFalsy();
+    done();
+  });
 });
 
 test('should setup edit expense action object', () => {
