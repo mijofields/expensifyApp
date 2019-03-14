@@ -15,7 +15,7 @@ test('should render ExpenseForm correctly with expense data', ()=> {
 });
 
 test(`should render error for invalid form submission`, ()=> {
-    const error = 'Please set both a description and amount';
+    const error = 'Please set both a description and an amount';
     const wrapper = shallow(<ExpenseForm />);
     wrapper.find('form').simulate('submit', {
         preventDefault: () => {}
